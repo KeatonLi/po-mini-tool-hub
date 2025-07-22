@@ -24,6 +24,21 @@ class App {
             });
         });
 
+        // 处理品牌/logo点击回到首页
+        const navBrand = document.querySelector('.nav-brand');
+        if (navBrand) {
+            navBrand.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.showPage('home');
+                // 设置首页导航为激活状态
+                const homeNavLink = document.querySelector('.nav-link[data-page="home"]');
+                if (homeNavLink) {
+                    this.setActiveNav(homeNavLink);
+                }
+                this.closeMobileMenu();
+            });
+        }
+
         // 处理特性卡片点击
         const featureCards = document.querySelectorAll('.feature-card');
         featureCards.forEach(card => {
