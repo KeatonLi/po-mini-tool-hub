@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人工具小网站 - 轻量级在线工具集合</title>
+    <meta name="description" content="个人工具小网站，提供JSON格式化、时间戳转换、字符串对比等实用工具">
+    <meta name="keywords" content="JSON格式化,时间戳转换,字符串对比,在线工具">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand" data-page="home">
+                🛠️ 工具小站
+            </a>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-page="home">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="json">JSON格式化</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="timestamp">时间戳转换</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="compare">字符串对比</a>
+                </li>
+            </ul>
+            
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 首页 -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>🛠️ 个人工具小网站</h1>
+                <p>轻量级在线工具集合，提升您的工作效率。无需安装，即开即用，支持所有现代浏览器。</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-page="json">
+                    <span class="feature-icon">📋</span>
+                    <h3>JSON 格式化</h3>
+                    <p>快速格式化、压缩和验证JSON数据，支持语法检查和错误定位，提供详细的数据分析。</p>
+                </div>
+                
+                <div class="feature-card" data-page="timestamp">
+                    <span class="feature-icon">⏰</span>
+                    <h3>时间戳转换</h3>
+                    <p>时间戳与日期时间的双向转换，支持多种时间格式，自动识别时区，提供相对时间显示。</p>
+                </div>
+                
+                <div class="feature-card" data-page="compare">
+                    <span class="feature-icon">🔍</span>
+                    <h3>字符串对比</h3>
+                    <p>智能字符串差异对比，计算相似度百分比，可视化显示差异，支持多行文本对比。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- JSON 格式化页面 -->
+        <div id="json" class="page">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h2>📋 JSON 格式化工具</h2>
+                    <p>格式化、压缩、验证JSON数据，支持语法检查和数据分析</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jsonInput">输入 JSON 数据：</label>
+                    <textarea 
+                        id="jsonInput" 
+                        class="form-control" 
+                        rows="12" 
+                        placeholder='请输入JSON数据，例如：{"name":"张三","age":25,"skills":["JavaScript","Python"]}'
+                    ></textarea>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="formatJsonBtn" class="btn">🎨 格式化</button>
+                    <button id="compressJsonBtn" class="btn">📦 压缩</button>
+                    <button id="validateJsonBtn" class="btn">✅ 验证</button>
+                    <button id="copyJsonBtn" class="btn btn-secondary">📋 复制结果</button>
+                    <button id="clearJsonBtn" class="btn btn-secondary">🗑️ 清空</button>
+                </div>
+                
+                <div id="jsonResult" class="result"></div>
+            </div>
+        </div>
+
+        <!-- 时间戳转换页面 -->
+        <div id="timestamp" class="page">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h2>⏰ 时间戳转换工具</h2>
+                    <p>时间戳与日期时间的双向转换，支持多种格式和时区</p>
+                </div>
+                
+                <div class="timestamp-grid">
+                    <div class="form-group">
+                        <label for="timestampInput">时间戳（秒或毫秒）：</label>
+                        <input 
+                            type="text" 
+                            id="timestampInput" 
+                            class="form-control" 
+                            placeholder="例如：1640995200 或 1640995200000"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dateInput">日期时间：</label>
+                        <input 
+                            type="datetime-local" 
+                            id="dateInput" 
+                            class="form-control"
+                        >
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="timestampToDateBtn" class="btn">📅 时间戳→日期</button>
+                    <button id="dateToTimestampBtn" class="btn">🕐 日期→时间戳</button>
+                    <button id="getCurrentTimestampBtn" class="btn">⏰ 当前时间</button>
+                    <button id="copyTimestampBtn" class="btn btn-secondary">📋 复制结果</button>
+                    <button id="clearTimestampBtn" class="btn btn-secondary">🗑️ 清空</button>
+                </div>
+                
+                <div id="timestampResult" class="result"></div>
+            </div>
+        </div>
+
+        <!-- 字符串对比页面 -->
+        <div id="compare" class="page">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h2>🔍 字符串对比工具</h2>
+                    <p>智能字符串差异对比，计算相似度，可视化显示差异</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="string1">字符串 1：</label>
+                    <textarea 
+                        id="string1" 
+                        class="form-control" 
+                        rows="8" 
+                        placeholder="请输入第一个字符串"
+                    ></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="string2">字符串 2：</label>
+                    <textarea 
+                        id="string2" 
+                        class="form-control" 
+                        rows="8" 
+                        placeholder="请输入第二个字符串"
+                    ></textarea>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="compareStringsBtn" class="btn">🔍 对比差异</button>
+                    <button id="swapStringsBtn" class="btn">🔄 交换字符串</button>
+                    <button id="copyCompareBtn" class="btn btn-secondary">📋 复制结果</button>
+                    <button id="clearStringsBtn" class="btn btn-secondary">🗑️ 清空</button>
+                </div>
+                
+                <div id="compareResult" class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 文件 -->
+    <script src="js/app.js"></script>
+    <script src="js/json-formatter.js"></script>
+    <script src="js/timestamp-converter.js"></script>
+    <script src="js/string-comparator.js"></script>
+</body>
+</html>
