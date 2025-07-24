@@ -30,6 +30,15 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link" data-page="compare">字符串对比</a>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="encode">编码转换</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="hash">哈希生成</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="uuid">UUID生成</a>
+                </li>
             </ul>
             
             <div class="nav-toggle">
@@ -67,6 +76,24 @@
                     <h3>字符串对比</h3>
                     <p>智能字符串差异对比，计算相似度百分比，可视化显示差异，支持多行文本对比。</p>
                 </div>
+                
+                <div class="feature-card" data-page="encode">
+                    <span class="feature-icon">🔄</span>
+                    <h3>编码转换</h3>
+                    <p>URL编码解码、Base64编码解码、HTML实体转换，支持批量处理和格式验证。</p>
+                </div>
+                
+                <div class="feature-card" data-page="hash">
+                    <span class="feature-icon">🔐</span>
+                    <h3>哈希生成</h3>
+                    <p>MD5、SHA1、SHA256等哈希算法生成，支持文件和文本哈希，提供安全校验功能。</p>
+                </div>
+                
+                <div class="feature-card" data-page="uuid">
+                    <span class="feature-icon">🆔</span>
+                    <h3>UUID生成</h3>
+                    <p>生成各种版本的UUID，支持批量生成、格式自定义，提供唯一标识符解决方案。</p>
+                </div>
             </div>
         </div>
 
@@ -92,8 +119,22 @@
                     <button id="formatJsonBtn" class="btn">🎨 格式化</button>
                     <button id="compressJsonBtn" class="btn">📦 压缩</button>
                     <button id="validateJsonBtn" class="btn">✅ 验证</button>
+                    <button id="selectAllJsonBtn" class="btn btn-secondary">📝 全选</button>
                     <button id="copyJsonBtn" class="btn btn-secondary">📋 复制结果</button>
                     <button id="clearJsonBtn" class="btn btn-secondary">🗑️ 清空</button>
+                </div>
+                
+                <!-- 查找功能 -->
+                <div id="jsonSearchContainer" class="search-container" style="display: none;">
+                    <div class="search-input-group">
+                        <input type="text" id="jsonSearchInput" class="search-input" placeholder="搜索JSON内容...">
+                        <div class="search-controls">
+                            <button id="jsonSearchPrevBtn" class="search-btn" title="上一个">↑</button>
+                            <button id="jsonSearchNextBtn" class="search-btn" title="下一个">↓</button>
+                            <span id="jsonSearchCount" class="search-count">0/0</span>
+                            <button id="jsonSearchCloseBtn" class="search-btn" title="关闭">✕</button>
+                        </div>
+                    </div>
                 </div>
                 
                 <div id="jsonResult" class="result"></div>
@@ -179,6 +220,101 @@
                 <div id="compareResult" class="result"></div>
             </div>
         </div>
+
+        <!-- 编码转换页面 -->
+        <div id="encode" class="page">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h2>🔄 编码转换工具</h2>
+                    <p>URL编码解码、Base64编码解码、HTML实体转换</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="encodeInput">输入文本：</label>
+                    <textarea 
+                        id="encodeInput" 
+                        class="form-control" 
+                        rows="8" 
+                        placeholder="请输入需要编码或解码的文本"
+                    ></textarea>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="urlEncodeBtn" class="btn">🔗 URL编码</button>
+                    <button id="urlDecodeBtn" class="btn">🔓 URL解码</button>
+                    <button id="base64EncodeBtn" class="btn">📦 Base64编码</button>
+                    <button id="base64DecodeBtn" class="btn">📂 Base64解码</button>
+                    <button id="htmlEncodeBtn" class="btn">🏷️ HTML编码</button>
+                    <button id="htmlDecodeBtn" class="btn">📄 HTML解码</button>
+                    <button id="copyEncodeBtn" class="btn btn-secondary">📋 复制结果</button>
+                    <button id="clearEncodeBtn" class="btn btn-secondary">🗑️ 清空</button>
+                </div>
+                
+                <div id="encodeResult" class="result"></div>
+            </div>
+        </div>
+
+        <!-- 哈希生成页面 -->
+        <div id="hash" class="page">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h2>🔐 哈希生成工具</h2>
+                    <p>MD5、SHA1、SHA256等哈希算法生成</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hashInput">输入文本：</label>
+                    <textarea 
+                        id="hashInput" 
+                        class="form-control" 
+                        rows="8" 
+                        placeholder="请输入需要生成哈希的文本"
+                    ></textarea>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="md5Btn" class="btn">🔐 MD5</button>
+                    <button id="sha1Btn" class="btn">🔒 SHA1</button>
+                    <button id="sha256Btn" class="btn">🛡️ SHA256</button>
+                    <button id="copyHashBtn" class="btn btn-secondary">📋 复制结果</button>
+                    <button id="clearHashBtn" class="btn btn-secondary">🗑️ 清空</button>
+                </div>
+                
+                <div id="hashResult" class="result"></div>
+            </div>
+        </div>
+
+        <!-- UUID生成页面 -->
+        <div id="uuid" class="page">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h2>🆔 UUID生成工具</h2>
+                    <p>生成各种版本的UUID，支持批量生成</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="uuidCount">生成数量：</label>
+                    <input 
+                        type="number" 
+                        id="uuidCount" 
+                        class="form-control" 
+                        value="1" 
+                        min="1" 
+                        max="100"
+                        placeholder="输入生成数量（1-100）"
+                    >
+                </div>
+                
+                <div class="btn-group">
+                    <button id="generateUuidV4Btn" class="btn">🆔 生成UUID v4</button>
+                    <button id="generateUuidV1Btn" class="btn">⏰ 生成UUID v1</button>
+                    <button id="copyUuidBtn" class="btn btn-secondary">📋 复制结果</button>
+                    <button id="clearUuidBtn" class="btn btn-secondary">🗑️ 清空</button>
+                </div>
+                
+                <div id="uuidResult" class="result"></div>
+            </div>
+        </div>
     </div>
 
     <!-- 页脚 -->
@@ -192,9 +328,12 @@
     </footer>
 
     <!-- JavaScript 文件 -->
-    <script src="js/app.js"></script>
     <script src="js/json-formatter.js"></script>
     <script src="js/timestamp-converter.js"></script>
     <script src="js/string-comparator.js"></script>
+    <script src="js/encode-converter.js"></script>
+    <script src="js/hash-generator.js"></script>
+    <script src="js/uuid-generator.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

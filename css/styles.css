@@ -323,8 +323,20 @@ body {
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    margin-top: 40px;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+@media (min-width: 768px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -647,6 +659,295 @@ body {
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 20px;
+}
+
+/* 搜索功能样式 */
+.search-container {
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.search-input-group {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px) saturate(200%);
+    border: 2px solid rgba(59, 130, 246, 0.2);
+    border-radius: 12px;
+    padding: 8px 12px;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.08);
+    transition: all 0.3s ease;
+}
+
+.search-input-group:focus-within {
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 4px 16px rgba(59, 130, 246, 0.12);
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    color: #334155;
+    padding: 8px 12px;
+    font-family: inherit;
+}
+
+.search-input::placeholder {
+    color: #94a3b8;
+}
+
+.search-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-btn {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 12px;
+    color: #3b82f6;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.search-btn:active {
+    transform: scale(0.95);
+}
+
+.search-count {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* JSON代码显示样式 */
+.json-code-container {
+    position: relative;
+    background: #f8fafc;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.json-code-header {
+    background: rgba(59, 130, 246, 0.05);
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.json-code-content {
+    display: flex;
+    max-height: 500px;
+    overflow: auto;
+}
+
+.json-line-numbers {
+    background: rgba(59, 130, 246, 0.03);
+    border-right: 1px solid rgba(59, 130, 246, 0.1);
+    padding: 12px 8px;
+    font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #94a3b8;
+    user-select: none;
+    min-width: 50px;
+    text-align: right;
+}
+
+.json-code-lines {
+    flex: 1;
+    padding: 12px 16px;
+    font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #334155;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+/* JSON语法高亮样式 */
+.json-key {
+    color: #0066cc;
+    font-weight: 600;
+}
+
+.json-string {
+    color: #22863a;
+}
+
+.json-number {
+    color: #005cc5;
+    font-weight: 500;
+}
+
+.json-boolean {
+    color: #d73a49;
+    font-weight: 600;
+}
+
+.json-null {
+    color: #6f42c1;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.json-bracket {
+    color: #24292e;
+    font-weight: 700;
+}
+
+.json-comma {
+    color: #586069;
+}
+
+/* 编码转换结果样式 */
+.encode-result {
+    margin-top: 1rem;
+}
+
+.encode-result h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.encode-result .result-content {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+    white-space: pre-wrap;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* 哈希生成结果样式 */
+.hash-result {
+    margin-top: 1rem;
+}
+
+.hash-result h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.hash-value {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    word-break: break-all;
+    color: #495057;
+    letter-spacing: 0.5px;
+}
+
+.hash-info {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: #e9ecef;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* UUID生成结果样式 */
+.uuid-result {
+    margin-top: 1rem;
+}
+
+.uuid-result h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.uuid-list {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.uuid-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.uuid-item:last-child {
+    margin-bottom: 0;
+}
+
+.uuid-index {
+    color: #6c757d;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    min-width: 30px;
+}
+
+.uuid-value {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #495057;
+    letter-spacing: 0.5px;
+    flex: 1;
+}
+
+.uuid-info {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: #e9ecef;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.json-search-highlight {
+    background: rgba(255, 235, 59, 0.6);
+    border-radius: 2px;
+    padding: 1px 2px;
+}
+
+.json-search-current {
+    background: rgba(255, 152, 0, 0.8);
+    border-radius: 2px;
+    padding: 1px 2px;
+    color: #fff;
+    font-weight: 600;
 }
 
 /* 结果显示区域 */

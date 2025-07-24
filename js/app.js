@@ -102,9 +102,12 @@ class App {
 
     initializeTools() {
         // 初始化各个工具
-        new JSONFormatter();
+        jsonFormatter = new JSONFormatter();
         new TimestampConverter();
         new StringComparator();
+        new EncodeConverter();
+        new HashGenerator();
+        new UUIDGenerator();
     }
 }
 
@@ -122,6 +125,10 @@ class Utils {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    static escapeRegex(text) {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
     static formatDate(date) {
