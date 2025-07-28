@@ -104,19 +104,14 @@ class JSONFormatter {
             const formatted = JSON.stringify(parsed, null, 2);
             const lines = formatted.split('\n');
             
-            // 生成行号
-            const lineNumbers = lines.map((_, index) => index + 1).join('\n');
-            
-            // 生成带搜索功能的JSON显示
-            const jsonDisplay = this.generateJSONDisplay(formatted, lines, lineNumbers);
+            // 生成简化的JSON显示
+            const jsonDisplay = this.generateJSONDisplay(formatted, lines, null);
             
             Utils.showResult('jsonResult', jsonDisplay, 'success');
             
             this.lastResult = formatted;
+            this.lastFormatted = formatted;
             this.formattedLines = lines;
-            
-            // 显示搜索容器
-            this.showSearchContainer();
             
         } catch (error) {
             const errorInfo = this.parseJSONError(error.message, inputValue);
@@ -127,8 +122,7 @@ class JSONFormatter {
                 'error'
             );
             
-            // 隐藏搜索容器
-            this.hideSearchContainer();
+
         }
     }
 
@@ -324,19 +318,9 @@ class JSONFormatter {
                 <div style="display: flex; gap: 15px; align-items: center;">
                     <small style="color: #6c757d;">字符数: ${formatted.length}</small>
                     <small style="color: #6c757d;">行数: ${totalLines}</small>
-                    <button onclick="jsonFormatter.showSearch()" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 6px; padding: 4px 8px; font-size: 12px; color: #3b82f6; cursor: pointer;">🔍 搜索</button>
                 </div>
             </div>
-            <div class="json-code-container">
-                <div class="json-code-header">
-                    <span>JSON 代码</span>
-                    <span>共 ${totalLines} 行</span>
-                </div>
-                <div class="json-code-content">
-                    <div class="json-line-numbers" id="jsonLineNumbers">${Utils.escapeHtml(lineNumbers)}</div>
-                    <div class="json-code-lines" id="jsonCodeLines">${this.highlightJSON(formatted)}</div>
-                </div>
-            </div>
+            <pre style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 15px; margin: 0; overflow-x: auto; white-space: pre-wrap; word-break: break-word; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 14px; line-height: 1.5;" id="jsonCodeLines">${this.highlightJSON(formatted)}</pre>
         `;
     }
 
@@ -473,10 +457,7 @@ class JSONFormatter {
     }
 
     clearSearchHighlights() {
-        const codeLines = document.getElementById('jsonCodeLines');
-        if (codeLines && this.formattedLines) {
-            codeLines.innerHTML = this.highlightJSON(this.formattedLines.join('\n'));
-        }
+        // 简化版本不需要搜索功能
     }
 
     highlightJSON(jsonString) {
