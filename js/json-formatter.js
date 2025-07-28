@@ -480,18 +480,38 @@ class JSONFormatter {
     }
 
     highlightJSON(jsonString) {
-        // JSON语法高亮
-        return jsonString
+        // JSON语法高亮 - 修复二进制字符串问题
+        let highlighted = jsonString
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:')
-            .replace(/: "([^"]*)"/g, ': <span class="json-string">"$1"</span>')
-            .replace(/: (true|false)/g, ': <span class="json-boolean">$1</span>')
-            .replace(/: (null)/g, ': <span class="json-null">$1</span>')
-            .replace(/: (-?\d+\.?\d*)/g, ': <span class="json-number">$1</span>')
+            .replace(/>/g, '&gt;');
+        
+        // 使用更精确的正则表达式来避免匹配问题
+        highlighted = highlighted
+            // 匹配对象键
+            .replace(/"([^"\\]*(\\.[^"\\]*)*)": /g, '<span class="json-key">"$1"</span>: ')
+            // 匹配字符串值（包含转义字符）
+            .replace(/: "([^"\\]*(\\.[^"\\]*)*)"/g, ': <span class="json-string">"$1"</span>')
+            // 匹配数组中的字符串
+            .replace(/\[\s*"([^"\\]*(\\.[^"\\]*)*)"/g, '[<span class="json-string">"$1"</span>')
+            .replace(/,\s*"([^"\\]*(\\.[^"\\]*)*)"/g, ', <span class="json-string">"$1"</span>')
+            // 匹配布尔值
+            .replace(/: (true|false)(?=\s*[,}\]])/g, ': <span class="json-boolean">$1</span>')
+            .replace(/\[\s*(true|false)(?=\s*[,\]])/g, '[<span class="json-boolean">$1</span>')
+            .replace(/,\s*(true|false)(?=\s*[,\]])/g, ', <span class="json-boolean">$1</span>')
+            // 匹配null值
+            .replace(/: (null)(?=\s*[,}\]])/g, ': <span class="json-null">$1</span>')
+            .replace(/\[\s*(null)(?=\s*[,\]])/g, '[<span class="json-null">$1</span>')
+            .replace(/,\s*(null)(?=\s*[,\]])/g, ', <span class="json-null">$1</span>')
+            // 匹配数字
+            .replace(/: (-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)(?=\s*[,}\]])/g, ': <span class="json-number">$1</span>')
+            .replace(/\[\s*(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)(?=\s*[,\]])/g, '[<span class="json-number">$1</span>')
+            .replace(/,\s*(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)(?=\s*[,\]])/g, ', <span class="json-number">$1</span>')
+            // 匹配括号和逗号
             .replace(/([{}\[\]])/g, '<span class="json-bracket">$1</span>')
-            .replace(/(,)/g, '<span class="json-comma">$1</span>');
+            .replace(/(,)(?=\s*[^\s])/g, '<span class="json-comma">$1</span>');
+        
+        return highlighted;
     }
 
     updateSearchCount() {
